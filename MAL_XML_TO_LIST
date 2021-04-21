@@ -1,0 +1,23 @@
+#include <iostream>
+#include<fstream>
+#include<string>
+using namespace std;
+int main() {
+  fstream fileStream;
+  fileStream.open(" XML FILE HERE ");
+  string data;
+  string check = "<series_title><![CDATA[";
+  string check2 = "]]></series_title>";
+  while(data != "			</myanimelist>")
+  {
+    getline(fileStream, data);
+    if (data.find(check) != string::npos) 
+    {
+      int i=data.find("<series_title><![CDATA[");
+      data.replace(0,24," ");
+      data.replace(data.find(check2),18,",");
+      cout<<data.substr(i,data.length()) << endl;
+    }
+  }
+  fileStream.close();
+}
